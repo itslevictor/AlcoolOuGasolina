@@ -20,7 +20,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Log.d("PDM23","No onCreate, $percentual")
         
-                TextView resultado = (TextView) findViewById(R.id.resultado);
+        if (savedInstanceState != null){
+            percentual =savedInstanceState.getDouble("percentual");
+        }
+        //recuperando caso exista
+        
+        TextView resultado = (TextView) findViewById(R.id.resultado);
         resultado.setText("$resultadoVal");
         //texto com resultado
 
@@ -48,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         
         val btCalc: Button = findViewById(R.id.btCalcular)
         btCalc.setOnClickListener(View.OnClickListener {
-            //código do evento
+        //código do evento
         if (swPercentual.isChecked()){
                 percentual=0.75
                 Log.d("PDM23","No btCalcular, $percentual")
@@ -72,22 +77,55 @@ class MainActivity : AppCompatActivity() {
     }
 override fun onResume(){
     super.onResume()
+    if (savedInstanceState != null){
+        percentual =savedInstanceState.getDouble("percentual");
+    }
+    //recuperando caso exista
+    
     Log.d("PDM23","No onResume, $percentual")
 }
+
 override fun onStart(){
     super.onStart()
-    Log.d("PDM23","No onResume")
+    if (savedInstanceState != null){
+        percentual =savedInstanceState.getDouble("percentual");
+    }
+    //recuperando caso exista
+    Log.d("PDM23","No onStart, $percentual")
 }
+
 override fun onPause(){
     super.onPause()
-    Log.d("PDM23","No onResume")
+    Log.d("PDM23","No onPause, $percentual")
+    if (savedInstanceState != null){
+        percentual =savedInstanceState.getDouble("percentual");
+    }
+    //recuperando caso exista
 }
-override fun onStop(){
-    super.onStop()
-    Log.d("PDM23","No onResume")
+
+override fun onStop(savedInstanceState: Bundle?){
+    super.onDestroy(savedInstanceState: Bundle?)
+    super.onDestroy(savedInstanceState)
+    if (savedInstanceState != null){
+        percentual =savedInstanceState.getDouble("percentual");
+    }
+    //recuperando caso exista
+    
+    Log.d("PDM23","No onStop, $percentual")
 }
+
 override fun onDestroy(){
-    super.onDestroy()
-    Log.d("PDM23","No onResume")
+    super.onDestroy(savedInstanceState: Bundle?)
+    super.onDestroy(savedInstanceState)
+    if (savedInstanceState != null){
+        percentual =savedInstanceState.getDouble("percentual");
+    }
+    //recuperando caso exista
+    Log.d("PDM23","No onDestroy, $percentual")
+}
+
+override fun onSaveInstanceState(outState: Bundle) {
+   outState.putDouble("percentual",percentual)
+   super.onSaveInstanceState(outState)
 }
 }
